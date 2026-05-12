@@ -224,6 +224,10 @@ def create_professional_plot(
         showlegend=True,
         legend=dict(x=0.99, y=0.99, bgcolor="rgba(255,255,255,0.7)"),
     )
+    fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor="LightGray",
+                            tickfont=dict(color="black"), title_font=dict(color="black"))
+    fig.update_yaxes(showgrid=False,
+                            tickfont=dict(color="black"), title_font=dict(color="black"))
     return fig
 
 
@@ -426,14 +430,16 @@ def page_bandgap(df1: pd.DataFrame) -> None:
         else:
             fig = px.scatter(
                 filtered_top, x=bandgap_col, y="Name", color="Name",
-                color_discrete_sequence=pick_palette(len(top_names)),
+                color_discrete_sequence=px.colors.qualitative.Bold,
                 title="Bandgap Distribution by Semiconductor",
                 labels={bandgap_col: "Bandgap (eV)", "Name": "Semiconductor"},
                 height=500, hover_data={bandgap_col: ":.2f"},
             )
             fig.update_traces(marker=dict(size=10, opacity=0.9))
-            fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor="LightGray")
-            fig.update_yaxes(showgrid=False)
+            fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor="LightGray",
+                            tickfont=dict(color="black"), title_font=dict(color="black"))
+            fig.update_yaxes(showgrid=False,
+                            tickfont=dict(color="black"), title_font=dict(color="black"))
             fig.update_layout(template="plotly_white", hovermode="closest")
             st.plotly_chart(fig, use_container_width=True, key="bandgap_scatter")
 
@@ -573,6 +579,10 @@ def page_bandgap(df1: pd.DataFrame) -> None:
                 paper_bgcolor="rgba(255,255,255,1)",
                 plot_bgcolor="rgba(255,255,255,1)",
             )
+            fig_scatter.update_xaxes(showgrid=True, gridwidth=1, gridcolor="LightGray",
+                            tickfont=dict(color="black"), title_font=dict(color="black"))
+            fig_scatter.update_yaxes(showgrid=False,
+                            tickfont=dict(color="black"), title_font=dict(color="black"))
             st.plotly_chart(fig_scatter, use_container_width=True, key="temporal_scatter")
 
             st.markdown("***The table displays ten(10) sampled journals relating to the filtered semiconductors.***")
