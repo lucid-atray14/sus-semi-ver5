@@ -1050,6 +1050,7 @@ def page_decision(df1: pd.DataFrame) -> None:
                     results = pd.DataFrame({
                         "Material":     df_mcdm["Name"].values,
                         "Bandgap (eV)": df_mcdm["Bandgap"].values,
+                        "DOI":          df_mcdm["DOI"].values,   # ← add this
                         "Net Flow":     flows,
                     }).sort_values("Net Flow", ascending=False).reset_index(drop=True)
 
