@@ -344,7 +344,7 @@ def page_bandgap(df1: pd.DataFrame) -> None:
 
     # ---- element selection ----
     st.markdown("### Element Inclusion")
-    st.image(PERIODIC_TABLE_URL, caption="Periodic Table of Elements", width='stretch')
+    st.image(PERIODIC_TABLE_URL, caption="Periodic Table of Elements")
 
     if st.session_state.included_elements:
         df1_filtered = filter_df1_by_included_elements(
@@ -441,7 +441,7 @@ def page_bandgap(df1: pd.DataFrame) -> None:
             fig.update_yaxes(showgrid=False,
                             tickfont=dict(color="black"), title_font=dict(color="black"))
             fig.update_layout(template="plotly_white", hovermode="closest")
-            st.plotly_chart(fig, width='stretch', key="bandgap_scatter")
+            st.plotly_chart(fig, use_container_width=True, key="bandgap_scatter")
 
     # ---- Histogram grid ----
     st.markdown("***Histogram plot shows the frequency distribution of bandgaps.***")
@@ -583,7 +583,7 @@ def page_bandgap(df1: pd.DataFrame) -> None:
                             tickfont=dict(color="black"), title_font=dict(color="black"))
             fig_scatter.update_yaxes(showgrid=False,
                             tickfont=dict(color="black"), title_font=dict(color="black"))
-            st.plotly_chart(fig_scatter, width='stretch', key="temporal_scatter")
+            st.plotly_chart(fig_scatter, use_container_width=True, key="temporal_scatter")
 
             st.markdown("***The table displays ten(10) sampled journals relating to the filtered semiconductors.***")
 
@@ -595,7 +595,7 @@ def page_bandgap(df1: pd.DataFrame) -> None:
 
             sample = df2_doi.sample(n=n, random_state=st.session_state.sample_seed).copy()
             sample["Date"] = sample["Date"].dt.strftime("%m/%Y")
-            st.dataframe(sample, width='stretch')
+            st.dataframe(sample, use_container_width=True)
 
             csv_bytes = to_csv_bytes(df2_doi)
             st.download_button(
@@ -630,7 +630,7 @@ def page_decision(df1: pd.DataFrame) -> None:
 
     # ---- element exclusion UI ----
     st.markdown("### 1. Element Exclusion")
-    st.image(PERIODIC_TABLE_URL, caption="Periodic Table of Elements", width='stretch')
+    st.image(PERIODIC_TABLE_URL, caption="Periodic Table of Elements")
 
     element_text_input = st.text_input(
         "Element symbols:",
@@ -845,7 +845,7 @@ def page_decision(df1: pd.DataFrame) -> None:
         fig_main = create_professional_plot(
             df_filtered, x_col, y_col, f"{x_col} vs {y_col}", x_col, y_col, False, log_y
         )
-        st.plotly_chart(fig_main, width='stretch', key="decision_making_scatter_plot")
+        st.plotly_chart(fig_main, use_container_width=True, key="decision_making_scatter_plot")
     else:
         st.warning("⚠️ No materials match the current filters")
 
@@ -1008,7 +1008,7 @@ def page_decision(df1: pd.DataFrame) -> None:
     else:
         st.dataframe(
             weights_df.style.format({"Weight": "{:.2%}"}),
-            width='stretch',
+            use_container_width=True,
         )
 
     # ---- run analysis ----
@@ -1050,7 +1050,7 @@ def page_decision(df1: pd.DataFrame) -> None:
                     results = pd.DataFrame({
                         "Material":     df_mcdm["Name"].values,
                         "Bandgap (eV)": df_mcdm["Bandgap"].values,
-                        "DOI":          df_mcdm["DOI"].values,   # ← add this
+                        "DOI":          df_mcdm["DOI"].values,
                         "Net Flow":     flows,
                     }).sort_values("Net Flow", ascending=False).reset_index(drop=True)
 
@@ -1072,7 +1072,7 @@ def page_decision(df1: pd.DataFrame) -> None:
 
         st.dataframe(
             results[display_cols].head(top_n).style.format(format_dict),
-            width='stretch',
+            use_container_width=True,
         )
 
         st.subheader("🏆 Top Materials")
