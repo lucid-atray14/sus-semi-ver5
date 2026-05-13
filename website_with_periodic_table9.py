@@ -70,7 +70,7 @@ def load_composition_database() -> pd.DataFrame:
 @st.cache_data
 def parse_dates(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
-    df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
+    df["Date"] = pd.to_datetime(df["Date"], format="%m/%Y", errors="coerce")
     return df
 
 # ---------------------------------------------------------------------------
